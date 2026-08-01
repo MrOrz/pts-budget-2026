@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-d5c1d13f-62ea-44e8-b7fc-2ff6f97e49d4/styles.css">
+<script src="_ds/classical-d5c1d13f-62ea-44e8-b7fc-2ff6f97e49d4/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text);
+    font-family: var(--font-body), "Noto Serif TC", serif; }
+  a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent-800); }
+  @keyframes om-pulse { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+</style>
+</helmet>
+
+<div style="min-height:100vh; font-family:var(--font-body), 'Noto Serif TC', serif; line-height:1.75; padding-bottom:72px">
+
+  <div style="max-width:1120px; margin:0 auto; padding:0 clamp(16px, 4vw, 32px)">
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:clamp(24px, 4vw, 48px); padding:clamp(28px, 4vw, 44px) 0 28px; align-items:start">
+      <div>
+        <div style="font-size:12px; letter-spacing:.22em; color:var(--color-accent-700); font-variant-numeric:tabular-nums; margin-bottom:14px">守護公視 · 全民連署行動</div>
+        <h1 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:400; font-size:clamp(27px, 4.6vw, 42px); line-height:1.24; margin:0 0 16px; letter-spacing:.01em; text-wrap:pretty"><span style="font-size: clamp(27px, 4.6vw, 42px); letter-spacing: 0.01em; text-wrap-mode: initial;">連署守護</span>公視預算</h1>
+        <p style="margin:0 0 16px; font-size:clamp(16px, 1.4vw, 18px); line-height:1.7; color:var(--color-neutral-900); max-width:46em">立法院延會將於 8 月底結束。在那之前，每一份連署都是立委看得見的民意。</p>
+        <p style="margin:0 0 14px; font-size:16px; text-align:justify; color:var(--color-neutral-800); max-width:46em">115 年度公視政府捐贈經費遭立委提案刪減及凍結逾 10 億元，接近今年約 21 億元捐助預算的一半；7 月 30 日，公視、小公視與公視台語台共 53 位第一線製作人發起「公視是全體國民的公視，籲請立委勿凍刪預算」連署。</p>
+        <p style="margin:0 0 22px; font-size:16px; text-align:justify; color:var(--color-neutral-800); max-width:46em">本頁面由公共電視之觀眾製作，追蹤連署趨勢，並提供相關資訊。</p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center">
+          <a class="btn btn-primary" href="{{ petitionUrl }}" target="_blank" rel="noopener" style="font-family:var(--font-body), 'Noto Serif TC', serif; font-size:16px; padding:12px 26px">閱讀說帖並加入連署</a>
+
+        </div>
+      </div>
+
+      <div class="card elev-sm" style="padding:26px; border:1px solid var(--color-divider); border-radius:var(--radius-md); background:var(--color-neutral-100)">
+        <div style="font-size:12px; letter-spacing:.2em; color:var(--color-neutral-600)">目前連署人數</div>
+        <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:400; font-size:clamp(46px, 9vw, 68px); line-height:1.05; font-variant-numeric:tabular-nums lining-nums; margin:6px 0 2px; color:var(--color-accent-800)">{{ totalText }}</div>
+        <div style="height:1px; background:var(--color-divider); margin:16px 0"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+          <div>
+            <div style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600)">最近一小時</div>
+            <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:28px; font-variant-numeric:tabular-nums; line-height:1.2">{{ lastHourText }}</div>
+          </div>
+          <div>
+            <div style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600)">最近 24 小時</div>
+            <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:28px; font-variant-numeric:tabular-nums; line-height:1.2">{{ last24Text }}</div>
+          </div>
+        </div>
+        <div style="height:1px; background:var(--color-divider); margin:16px 0"></div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--color-neutral-600); font-variant-numeric:tabular-nums">
+          <span style="width:6px; height:6px; border-radius:50%; background:var(--color-accent); animation:om-pulse 2.4s ease-in-out infinite"></span>
+          <span>{{ updatedText }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:1px; background:var(--color-divider)"></div>
+
+    <div style="padding:28px 0 8px">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:28px">
+        <div>
+          <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(24px, 3.6vw, 34px); margin:0 0 6px; letter-spacing:.02em">連署趨勢</h2>
+          <div style="font-size:14px; color:var(--color-neutral-600)">每 {{ refreshText }}自動重讀公視連署名單試算表</div>
+        </div>
+        <div class="seg" role="group" style="align-self:center">
+          <button class="seg-opt" type="button" onClick="{{ setCumulative }}" aria-pressed="{{ isCumulative }}" style="{{ cumBtnStyle }}">累計人數</button>
+          <button class="seg-opt" type="button" onClick="{{ setHourly }}" aria-pressed="{{ isHourly }}" style="{{ hrBtnStyle }}">每小時新增</button>
+        </div>
+      </div>
+
+      <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px solid var(--color-accent-300); background:var(--color-accent-100); border-radius:var(--radius-md); padding:20px 24px; font-size:15px; margin-bottom:24px">
+          無法讀取連署名單試算表（可能是網路或權限限制）。你仍然可以<a href="{{ sheetUrl }}" target="_blank" rel="noopener">直接開啟名單</a>，或<a href="{{ petitionUrl }}" target="_blank" rel="noopener">前往連署</a>。
+        </div>
+      </sc-if>
+
+      <div style="border:1px solid var(--color-divider); border-radius:var(--radius-md); background:var(--color-neutral-100); padding:clamp(12px, 2.4vw, 24px); position:relative">
+        <div style="position:relative">
+        <svg viewBox="0 0 1000 320" preserveAspectRatio="none" style="width:100%; height:clamp(200px, 34vh, 320px); display:block; overflow:visible; touch-action:pan-y" onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}" onTouchStart="{{ onTouch }}" onTouchMove="{{ onTouch }}" onTouchEnd="{{ onLeave }}" ref="{{ svgRef }}">
+          <sc-for list="{{ yTicks }}" as="t" hint-placeholder-count="5">
+            <line x1="{{ t.x1 }}" y1="{{ t.y }}" x2="960" y2="{{ t.y }}" stroke="var(--color-divider)" stroke-width="1"></line>
+          </sc-for>
+          <sc-for list="{{ bars }}" as="b" hint-placeholder-count="24">
+            <rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.w }}" height="{{ b.h }}" fill="{{ b.fill }}"></rect>
+          </sc-for>
+          <path d="{{ areaPath }}" fill="{{ areaFill }}" stroke="none"></path>
+          <path d="{{ linePath }}" fill="none" stroke="{{ lineStroke }}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+          <sc-if value="{{ hover }}" hint-placeholder-val="{{ false }}">
+            <g>
+              <line x1="{{ hover.x }}" y1="16" x2="{{ hover.x }}" y2="320" stroke="var(--color-accent)" stroke-width="1" stroke-dasharray="3 3"></line>
+              <circle cx="{{ hover.x }}" cy="{{ hover.y }}" r="4" fill="var(--color-bg)" stroke="var(--color-accent-700)" stroke-width="2"></circle>
+            </g>
+          </sc-if>
+        </svg>
+        <sc-for list="{{ yTicks }}" as="t" hint-placeholder-count="5">
+          <div style="{{ t.labelStyle }}">{{ t.label }}</div>
+        </sc-for>
+        <sc-if value="{{ hover }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ hoverBoxStyle }}">
+            <div style="font-size:12px; letter-spacing:.1em; color:var(--color-neutral-600); font-variant-numeric:tabular-nums">{{ hover.time }}</div>
+            <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:clamp(17px, 3vw, 24px); font-variant-numeric:tabular-nums; line-height:1.3">{{ hover.value }}</div>
+          </div>
+        </sc-if>
+        </div>
+        <div style="position:relative; height:24px">
+          <sc-for list="{{ xTicks }}" as="t" hint-placeholder-count="6">
+            <div style="{{ t.labelStyle }}">{{ t.label }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center; font-size:12px; color:var(--color-neutral-600); padding:4px 0 0">
+          <span>{{ legendText }}</span>
+          <span style="margin-left:auto; font-variant-numeric:tabular-nums">{{ rangeText }}</span>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:0; margin-top:32px; border-top:1px solid var(--color-divider); border-bottom:1px solid var(--color-divider)">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="padding:20px clamp(12px, 2vw, 24px); border-right:1px solid var(--color-divider)">
+            <div style="font-size:12px; letter-spacing:.16em; color:var(--color-neutral-600); margin-bottom:8px">{{ s.label }}</div>
+            <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:clamp(24px, 3vw, 30px); font-variant-numeric:tabular-nums; line-height:1.2">{{ s.value }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin:clamp(32px, 5vw, 56px) 0; border:1px solid var(--color-accent); border-radius:var(--radius-md); padding:clamp(24px, 4vw, 44px) clamp(20px, 4vw, 48px); display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:clamp(20px, 3vw, 40px); align-items:center; justify-items:start">
+      <div>
+        <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(22px, 3.4vw, 32px); margin:0 0 10px; letter-spacing:.02em">說帖與連署書都在這裡</h2>
+        <p style="margin:0; font-size:16px; color:var(--color-neutral-800); max-width:52em; text-align:justify">連署訴求指出，若提案通過，公視主頻、小公視與台語台今年預算恐遭腰斬，衝擊下半年新聞、戲劇、紀錄片、文化與兒少節目的製播。公視官方頁面備有完整說帖與連署書，填寫姓名與單位／職稱即可完成連署。</p>
+      </div>
+      <a class="btn btn-primary" href="{{ petitionUrl }}" target="_blank" rel="noopener" style="font-family:var(--font-body), 'Noto Serif TC', serif; font-size:17px; padding:16px 34px; white-space:nowrap; justify-self:end">閱讀說帖並連署</a>
+    </div>
+
+    <sc-if value="{{ showRecent }}" hint-placeholder-val="{{ true }}">
+      <div style="padding-bottom:64px">
+        <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(24px, 3.6vw, 34px); margin:0 0 6px; letter-spacing:.02em">最新連署</h2>
+        <div style="font-size:14px; color:var(--color-neutral-600); margin-bottom:24px">名單依連署人同意公開顯示，資料來源為公視連署試算表。</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:0 48px; border-top:1px solid var(--color-divider)">
+          <sc-for list="{{ recent }}" as="r" hint-placeholder-count="12">
+            <div style="display:flex; gap:16px; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--color-divider)">
+              <span style="font-family:var(--font-heading), serif; font-size:13px; color:var(--color-neutral-500); font-variant-numeric:tabular-nums; min-width:44px">{{ r.no }}</span>
+              <span style="font-size:16px; min-width:5.5em">{{ r.name }}</span>
+              <span style="font-size:14px; color:var(--color-neutral-700); text-align:right; margin-left:auto; overflow-wrap:anywhere">{{ r.org }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <div style="height:1px; background:var(--color-divider)"></div>
+    <div style="padding:28px 0 56px; font-size:13px; color:var(--color-neutral-600); display:flex; gap:24px; flex-wrap:wrap; justify-content:space-between">
+      <span>資料來源：<a href="{{ sheetUrl }}" target="_blank" rel="noopener">公視連署名單試算表</a>（公開唯讀）。本頁僅重新呈現公開資料。</span>
+      <span style="font-variant-numeric:tabular-nums">{{ updatedText }}</span>
+    </div>
+  </div>
+
+  <div style="position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--color-neutral-900); color:var(--color-neutral-100); border-top:1px solid var(--color-accent-700)">
+    <div style="max-width:1120px; margin:0 auto; padding:10px clamp(16px, 4vw, 32px); display:flex; align-items:center; gap:12px; justify-content:space-between">
+      <span style="font-size:clamp(12px, 2.6vw, 14px); letter-spacing:.04em">已有 <strong style="font-family:var(--font-heading), serif; font-size:clamp(16px, 3.4vw, 19px); font-variant-numeric:tabular-nums; color:var(--color-accent-300); font-weight:500">{{ totalText }}</strong> 人具名支持公共電視</span>
+      <a href="{{ petitionUrl }}" target="_blank" rel="noopener" style="font-size:clamp(13px, 2.8vw, 15px); color:var(--color-accent-300); border:1px solid var(--color-accent-400); border-radius:var(--radius-md); padding:10px clamp(14px, 3vw, 22px); text-decoration:none; white-space:nowrap; min-height:44px; display:flex; align-items:center" style-hover="background:color-mix(in srgb, var(--color-accent-400) 18%, transparent); color:var(--color-accent-200)">我也要連署</a>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;petitionUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://events.pts.org.tw/petition/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連結&quot;},&quot;gid&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1586837908&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;refreshMinutes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:60,&quot;unit&quot;:&quot;分&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;showRecent&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;版面&quot;}}">
+const SHEET_ID = "16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw";
+
+class Component extends DCLogic {
+  state = { rows: null, error: false, mode: "cumulative", hover: null, updated: null };
+
+  componentDidMount() {
+    this.svg = React.createRef();
+    this.load();
+    const mins = Number(this.props.refreshMinutes ?? 5);
+    this.timer = setInterval(() => this.load(), Math.max(1, mins) * 60000);
+    this.onResize = () => this.forceUpdate();
+    window.addEventListener("resize", this.onResize);
+  }
+  componentWillUnmount() { clearInterval(this.timer); window.removeEventListener("resize", this.onResize); }
+
+  async load() {
+    const gid = this.props.gid ?? "1586837908";
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${gid}&tqx=out:json&headers=1&_=${Date.now()}`;
+    try {
+      const text = await fetch(url).then(r => r.text());
+      const json = JSON.parse(text.slice(text.indexOf("(") + 1, text.lastIndexOf(")")));
+      const rows = (json.table.rows || []).map(r => {
+        const c = r.c || [];
+        return { t: this.parseTime(c[0]), name: (c[1] && (c[1].f ?? c[1].v)) || "", org: (c[2] && (c[2].f ?? c[2].v)) || "" };
+      }).filter(r => r.t).sort((a, b) => a.t - b.t);
+      this.setState({ rows, error: rows.length === 0, updated: new Date() });
+    } catch (e) { this.setState({ error: true }); }
+  }
+
+  parseTime(cell) {
+    if (!cell) return null;
+    const v = cell.v;
+    if (typeof v === "string") {
+      const m = v.match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)$/);
+      if (m) return new Date(+m[1], +m[2], +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)).getTime();
+    }
+    const f = cell.f || (typeof v === "string" ? v : "");
+    const m2 = f.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})\s*(上午|下午)?\s*(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+    if (m2) {
+      let h = +m2[5];
+      if (m2[4] === "下午" && h < 12) h += 12;
+      if (m2[4] === "上午" && h === 12) h = 0;
+      return new Date(+m2[1], +m2[2] - 1, +m2[3], h, +m2[6], +(m2[7] || 0)).getTime();
+    }
+    const d = Date.parse(f);
+    return isNaN(d) ? null : d;
+  }
+
+  fmtClock(t) {
+    const d = new Date(t);
+    const p = n => String(n).padStart(2, "0");
+    return `${d.getMonth() + 1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+  }
+
+  renderVals() {
+    const rows = this.state.rows || [];
+    const now = this.state.updated ? this.state.updated.getTime() : Date.now();
+    const mode = this.state.mode;
+    const cumulative = mode === "cumulative";
+    const total = rows.length;
+    const since = ms => rows.filter(r => r.t >= now - ms).length;
+
+    const W = 1000, H = 320, PL = 60, PR = 40, PT = 16, PB = 0;
+    const t0 = rows.length ? rows[0].t : now - 36e5;
+    const t1 = rows.length ? Math.max(rows[rows.length - 1].t, now) : now;
+    const span = Math.max(t1 - t0, 36e5);
+    const sx = t => PL + ((t - t0) / span) * (W - PL - PR);
+
+    // hourly buckets
+    const h0 = new Date(t0); h0.setMinutes(0, 0, 0);
+    const buckets = [];
+    for (let t = h0.getTime(); t <= t1; t += 36e5) buckets.push({ t, n: 0 });
+    rows.forEach(r => {
+      const i = Math.floor((r.t - h0.getTime()) / 36e5);
+      if (buckets[i]) buckets[i].n++;
+    });
+    const maxHour = Math.max(1, ...buckets.map(b => b.n));
+
+    const niceMax = v => { const p = Math.pow(10, Math.floor(Math.log10(Math.max(v, 1)))); return Math.ceil(v / (p / 2)) * (p / 2); };
+    const yMax = cumulative ? Math.max(niceMax(total || 10), 10) : Math.max(niceMax(maxHour), 5);
+    const sy = v => PT + (1 - v / yMax) * (H - PT - PB);
+
+    const yTicks = [];
+    const steps = 4;
+    for (let i = 0; i <= steps; i++) {
+      const v = Math.round((yMax / steps) * i);
+      const y = sy(v);
+      yTicks.push({
+        x1: PL - 8, y, label: v >= 10000 ? Math.round(v / 1000) + "k" : v.toLocaleString("en-US"),
+        labelStyle: `position:absolute; left:0; width:${(PL - 10) / 10}%; top:${(y / 320 * 100).toFixed(2)}%; transform:translateY(-50%); text-align:right; font-size:clamp(10px, 1.5vw, 12px); color:var(--color-neutral-600); font-variant-numeric:tabular-nums; line-height:1.2; pointer-events:none`
+      });
+    }
+
+    const xTicks = [];
+    const narrow = typeof window !== "undefined" && window.innerWidth < 720;
+    const tickCount = narrow ? 3 : 6;
+    for (let i = 0; i <= tickCount; i++) {
+      const t = t0 + (span / tickCount) * i;
+      const x = sx(t);
+      xTicks.push({
+        x, label: this.fmtClock(t),
+        labelStyle: `position:absolute; left:${Math.min(Math.max(x / 10, 4), 96).toFixed(2)}%; top:4px; transform:translateX(-50%); font-size:clamp(10px, 1.5vw, 12px); color:var(--color-neutral-600); font-variant-numeric:tabular-nums; white-space:nowrap; pointer-events:none`
+      });
+    }
+
+    let linePath = "", areaPath = "", bars = [];
+    if (cumulative && rows.length) {
+      const step = Math.max(1, Math.ceil(rows.length / 900));
+      const pts = [];
+      for (let i = 0; i < rows.length; i += step) pts.push([sx(rows[i].t), sy(i + 1)]);
+      pts.push([sx(t1), sy(total)]);
+      linePath = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+      areaPath = linePath + ` L${sx(t1).toFixed(1)} ${sy(0).toFixed(1)} L${sx(t0).toFixed(1)} ${sy(0).toFixed(1)} Z`;
+    } else if (!cumulative) {
+      const bw = Math.max(2, ((W - PL - PR) / Math.max(buckets.length, 1)) - 2);
+      bars = buckets.map(b => {
+        const y = sy(b.n);
+        return { x: sx(b.t) + 1, y, w: bw, h: Math.max(0, sy(0) - y), fill: "var(--color-accent-400)" };
+      });
+    }
+
+    const hv = this.state.hover;
+    let hover = null;
+    if (hv && rows.length) {
+      if (cumulative) {
+        const t = t0 + (Math.min(Math.max(hv.px, PL), W - PR) - PL) / (W - PL - PR) * span;
+        let n = 0; while (n < rows.length && rows[n].t <= t) n++;
+        hover = { x: sx(t), y: sy(n), time: this.fmtClock(t), value: n.toLocaleString("en-US") + " 人累計" };
+      } else {
+        const idx = Math.round((Math.min(Math.max(hv.px, PL), W - PR) - PL) / (W - PL - PR) * span / 36e5);
+        const b = buckets[Math.min(Math.max(idx, 0), buckets.length - 1)];
+        if (b) hover = { x: sx(b.t), y: sy(b.n), time: this.fmtClock(b.t) + " 起一小時", value: "+" + b.n + " 人" };
+      }
+    }
+
+    const segOn = "background:var(--color-accent-100); color:var(--color-accent-800); font-family:var(--font-body), 'Noto Serif TC', serif; font-size:14px";
+    const segOff = "font-family:var(--font-body), 'Noto Serif TC', serif; font-size:14px; color:var(--color-neutral-700)";
+
+    const peak = buckets.reduce((a, b) => (b.n > a.n ? b : a), { n: 0, t: t0 });
+    const hours = Math.max(1, (t1 - t0) / 36e5);
+
+    return {
+      petitionUrl: this.props.petitionUrl ?? "https://events.pts.org.tw/petition/",
+      sheetUrl: `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?gid=${this.props.gid ?? "1586837908"}`,
+      showRecent: this.props.showRecent ?? true,
+      refreshText: (this.props.refreshMinutes ?? 5) + " 分鐘",
+      hasError: this.state.error,
+      totalText: total ? total.toLocaleString("en-US") : "—",
+      lastHourText: rows.length ? "+" + since(36e5) : "—",
+      last24Text: rows.length ? "+" + since(864e5) : "—",
+      updatedText: this.state.updated ? "更新於 " + this.fmtClock(this.state.updated.getTime()) : "讀取中…",
+      isCumulative: cumulative, isHourly: !cumulative,
+      cumBtnStyle: cumulative ? segOn : segOff,
+      hrBtnStyle: cumulative ? segOff : segOn,
+      setCumulative: () => this.setState({ mode: "cumulative", hover: null }),
+      setHourly: () => this.setState({ mode: "hourly", hover: null }),
+      yTicks, xTicks, bars, linePath, areaPath, hover,
+      areaFill: "color-mix(in srgb, var(--color-accent-300) 30%, transparent)",
+      lineStroke: "var(--color-accent-700)",
+      legendText: cumulative ? "累計連署人數" : "每小時新增連署人數",
+      rangeText: rows.length ? this.fmtClock(t0) + " – " + this.fmtClock(t1) : "",
+      hoverBoxStyle: hover
+        ? `position:absolute; pointer-events:none; top:8px; left:${(hover.x / 1000 * 100).toFixed(2)}%; transform:translateX(${hover.x > 620 ? "-108%" : "8px"}); background:var(--color-bg); border:1px solid var(--color-divider); border-radius:var(--radius-md); padding:10px 14px; box-shadow:var(--shadow-sm); white-space:nowrap`
+        : "display:none",
+      svgRef: this.svg,
+      onMove: (e) => {
+        const el = this.svg && this.svg.current;
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        this.setState({ hover: { px: ((e.clientX - r.left) / r.width) * 1000 } });
+      },
+      onTouch: (e) => {
+        const el = this.svg && this.svg.current;
+        const t = e.touches && e.touches[0];
+        if (!el || !t) return;
+        const r = el.getBoundingClientRect();
+        this.setState({ hover: { px: ((t.clientX - r.left) / r.width) * 1000 } });
+      },
+      onLeave: () => this.setState({ hover: null }),
+      stats: [
+        { label: "連署總人數", value: total ? total.toLocaleString("en-US") : "—" },
+        { label: "平均每小時", value: rows.length ? (total / hours).toFixed(1) : "—" },
+        { label: "單一小時最高", value: rows.length ? peak.n + " 人" : "—" },
+        { label: "尖峰時段", value: rows.length ? this.fmtClock(peak.t) : "—" }
+      ],
+      recent: rows.slice(-12).reverse().map((r, i) => ({ no: "#" + (total - i), name: r.name, org: r.org }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>
