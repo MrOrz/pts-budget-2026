@@ -1,0 +1,8 @@
+{
+  "name": "pts-budget-2026",
+  "private": true,
+  "scripts": {
+    "serve": "npx serve .",
+    "fetch-budget-data": "node scripts/fetch-budget-data.mjs"
+  }
+}

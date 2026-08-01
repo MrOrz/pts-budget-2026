@@ -1,0 +1,26 @@
+name: 內容 / 文案問題
+description: 網站上的文案、數字、版面有誤或想提出調整建議。這類 issue 會轉到 Claude Design 上修改,不會直接收 PR。
+labels: ["content"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 問題描述
+      description: 哪裡看起來不對、或希望怎麼調整？
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: 所在頁面區塊
+      description: 例如「hero 標題」「預算表 - 兒少節目分頁」「刪凍提案列表」
+      placeholder: 例如：預算表 - 臺語台營運分頁
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建議修改內容(選填)
+      description: 如果已經有具體的修改文字或參考資料,歡迎附上。
+    validations:
+      required: false

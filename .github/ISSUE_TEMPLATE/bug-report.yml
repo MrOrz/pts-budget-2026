@@ -1,0 +1,24 @@
+name: 程式錯誤
+description: 圖表、資料讀取或其他程式邏輯出錯。歡迎附上重現步驟,也歡迎直接開 PR。
+labels: ["bug"]
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: 重現步驟
+      description: 怎麼做會出現這個問題？
+    validations:
+      required: true
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: 預期行為 vs 實際行為
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 瀏覽器 / 裝置(選填)
+      placeholder: 例如：iOS Safari 18 / Chrome 130 desktop
+    validations:
+      required: false
