@@ -286,23 +286,7 @@
       <a class="btn btn-primary" href="{{ petitionUrl }}" target="_blank" rel="noopener" style="font-family:var(--font-body), 'Noto Serif TC', serif; font-size:17px; padding:16px 34px; white-space:nowrap; justify-self:end">閱讀說帖並連署</a>
     </div>
 
-    <sc-if value="{{ showRecent }}" hint-placeholder-val="{{ true }}">
-      <div style="padding-bottom:64px">
-        <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(24px, 3.6vw, 34px); margin:0 0 6px; letter-spacing:.02em">最新連署</h2>
-        <div style="font-size:14px; color:var(--color-neutral-600); margin-bottom:24px">名單依連署人同意公開顯示，資料來源為公視連署試算表。</div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(290px, 1fr)); gap:0 48px; border-top:1px solid var(--color-divider)">
-          <sc-for list="{{ recent }}" as="r" hint-placeholder-count="12">
-            <div style="display:flex; gap:16px; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--color-divider)">
-              <span style="font-family:var(--font-heading), serif; font-size:13px; color:var(--color-neutral-500); font-variant-numeric:tabular-nums; min-width:44px">{{ r.no }}</span>
-              <span style="font-size:16px; min-width:5.5em">{{ r.name }}</span>
-              <span style="font-size:14px; color:var(--color-neutral-700); text-align:right; margin-left:auto; overflow-wrap:anywhere">{{ r.org }}</span>
-            </div>
-          </sc-for>
-        </div>
-      </div>
-    </sc-if>
-
-    <div style="height:1px; background:var(--color-divider)"></div>
+    <div style="height:1px; background:var(--color-divider); margin-top:clamp(36px, 6vw, 64px)"></div>
     <div style="padding:28px 0 56px; font-size:13px; color:var(--color-neutral-600); display:flex; gap:24px; flex-wrap:wrap; justify-content:space-between">
       <span>資料來源：<a href="{{ sheetUrl }}" target="_blank" rel="noopener">公視連署名單試算表</a>（公開唯讀）。本頁僅重新呈現公開資料，問題回報請至 <a href="https://github.com/MrOrz/pts-budget-2026/issues/" target="_blank" rel="noopener">GitHub issues</a>。</span>
       <span style="font-variant-numeric:tabular-nums">{{ updatedText }}</span>
@@ -318,7 +302,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;petitionUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://events.pts.org.tw/petition/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連結&quot;},&quot;gid&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1586837908&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;refreshMinutes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:60,&quot;unit&quot;:&quot;分&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;showRecent&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;版面&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;petitionUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://events.pts.org.tw/petition/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連結&quot;},&quot;gid&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1586837908&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;refreshMinutes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:60,&quot;unit&quot;:&quot;分&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;資料來源&quot;}}">
 const SHEET_ID = "16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw";
 // The FY115 budget book is fixed once the fiscal year is enacted (only ever
 // touched again for a correction), unlike the constantly-growing signature
@@ -338,16 +322,15 @@ const BUDGET_TABS = [
 ];
 
 class Component extends DCLogic {
-  state = { total: null, hourBuckets: null, recent: null, error: false, mode: "cumulative", hover: null, updated: null,
+  state = { total: null, hourBuckets: null, error: false, mode: "cumulative", hover: null, updated: null,
             budget: {}, budgetTab: "kids", open: {} };
 
   componentDidMount() {
     this.svg = React.createRef();
     this.loadChart();
-    this.loadRecent();
     this.loadBudget();
     const mins = Number(this.props.refreshMinutes ?? 5);
-    this.timer = setInterval(() => { this.loadChart(); this.loadRecent(); }, Math.max(1, mins) * 60000);
+    this.timer = setInterval(() => this.loadChart(), Math.max(1, mins) * 60000);
     this.onResize = () => this.forceUpdate();
     window.addEventListener("resize", this.onResize);
   }
@@ -378,20 +361,6 @@ class Component extends DCLogic {
       const total = hourBuckets.reduce((sum, b) => sum + b.n, 0);
       this.setState({ hourBuckets, total, error: false, updated: new Date() });
     } catch (e) { this.setState({ error: true }); }
-  }
-
-  // Runs independently of loadChart() so the "最新連署" list shows up as
-  // soon as it's ready, without waiting on (or blocking) the chart query.
-  async loadRecent() {
-    const gid = this.props.gid ?? "1586837908";
-    try {
-      const recentRes = await this.runQuery(gid, "select A,B,C order by A desc limit 12");
-      const recent = (recentRes.table.rows || []).map(r => {
-        const c = r.c || [];
-        return { name: (c[1] && (c[1].f ?? c[1].v)) || "", org: (c[2] && (c[2].f ?? c[2].v)) || "" };
-      });
-      this.setState({ recent });
-    } catch (e) { /* keep whatever recent list is already showing */ }
   }
 
   // Loads the pre-snapshotted budget table (see BUDGET_SHEET_ID comment
@@ -572,7 +541,6 @@ class Component extends DCLogic {
       budgetSheetUrl: `https://docs.google.com/spreadsheets/d/${BUDGET_SHEET_ID}/edit`,
       petitionUrl: this.props.petitionUrl ?? "https://events.pts.org.tw/petition/",
       sheetUrl: `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?gid=${this.props.gid ?? "1586837908"}`,
-      showRecent: this.props.showRecent ?? true,
       refreshText: (this.props.refreshMinutes ?? 5) + " 分鐘",
       hasError: this.state.error,
       totalText: total ? total.toLocaleString("en-US") : "—",
@@ -610,8 +578,7 @@ class Component extends DCLogic {
         { label: "平均每小時", value: loaded ? avgPerHour : "—" },
         { label: "單一小時最高", value: loaded ? peak.n + " 人" : "—" },
         { label: "尖峰時段", value: loaded ? this.fmtClock(peak.t) : "—" }
-      ],
-      recent: (this.state.recent || []).map((r, i) => ({ no: "#" + (total - i), name: r.name, org: r.org }))
+      ]
     };
   }
 }
