@@ -174,49 +174,60 @@
 const SHEET_ID = "16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw";
 
 class Component extends DCLogic {
-  state = { rows: null, error: false, mode: "cumulative", hover: null, updated: null };
+  state = { total: null, lastHour: null, last24h: null, hourBuckets: null, recent: null, error: false, mode: "cumulative", hover: null, updated: null };
 
   componentDidMount() {
     this.svg = React.createRef();
-    this.load();
+    this.loadChart();
+    this.loadRecent();
     const mins = Number(this.props.refreshMinutes ?? 5);
-    this.timer = setInterval(() => this.load(), Math.max(1, mins) * 60000);
+    this.timer = setInterval(() => { this.loadChart(); this.loadRecent(); }, Math.max(1, mins) * 60000);
     this.onResize = () => this.forceUpdate();
     window.addEventListener("resize", this.onResize);
   }
   componentWillUnmount() { clearInterval(this.timer); window.removeEventListener("resize", this.onResize); }
 
-  async load() {
+  async runQuery(gid, tq) {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${gid}&tqx=out:json&tq=${encodeURIComponent(tq)}&_=${Date.now()}`;
+    const text = await fetch(url).then(r => r.text());
+    const json = JSON.parse(text.slice(text.indexOf("(") + 1, text.lastIndexOf(")")));
+    if (json.status !== "ok") throw new Error("query failed: " + tq);
+    return json;
+  }
+
+  // Ask Google's Visualization Query Language (the same engine behind Sheets'
+  // embedded charts) to pre-aggregate hourly counts server-side, so the
+  // client only ever downloads ~one row per hour instead of the whole
+  // (constantly growing) signature list. Total/last-hour/last-24h are all
+  // derived from these same hourly buckets rather than separate queries.
+  async loadChart() {
     const gid = this.props.gid ?? "1586837908";
-    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${gid}&tqx=out:json&headers=1&_=${Date.now()}`;
     try {
-      const text = await fetch(url).then(r => r.text());
-      const json = JSON.parse(text.slice(text.indexOf("(") + 1, text.lastIndexOf(")")));
-      const rows = (json.table.rows || []).map(r => {
+      const bucketsRes = await this.runQuery(gid, "select year(A),month(A),day(A),hour(A),count(A) group by year(A),month(A),day(A),hour(A) order by year(A),month(A),day(A),hour(A)");
+      const hourBuckets = (bucketsRes.table.rows || []).map(r => {
         const c = r.c || [];
-        return { t: this.parseTime(c[0]), name: (c[1] && (c[1].f ?? c[1].v)) || "", org: (c[2] && (c[2].f ?? c[2].v)) || "" };
-      }).filter(r => r.t).sort((a, b) => a.t - b.t);
-      this.setState({ rows, error: rows.length === 0, updated: new Date() });
+        const t = new Date(c[0]?.v ?? 0, c[1]?.v ?? 0, c[2]?.v ?? 1, c[3]?.v ?? 0).getTime();
+        return { t, n: c[4]?.v ?? 0 };
+      }).sort((a, b) => a.t - b.t);
+      const now = Date.now();
+      const total = hourBuckets.reduce((sum, b) => sum + b.n, 0);
+      const sumSince = ms => hourBuckets.filter(b => b.t >= now - ms).reduce((sum, b) => sum + b.n, 0);
+      this.setState({ hourBuckets, total, lastHour: sumSince(36e5), last24h: sumSince(864e5), error: false, updated: new Date() });
     } catch (e) { this.setState({ error: true }); }
   }
 
-  parseTime(cell) {
-    if (!cell) return null;
-    const v = cell.v;
-    if (typeof v === "string") {
-      const m = v.match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)$/);
-      if (m) return new Date(+m[1], +m[2], +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0)).getTime();
-    }
-    const f = cell.f || (typeof v === "string" ? v : "");
-    const m2 = f.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})\s*(上午|下午)?\s*(\d{1,2}):(\d{2})(?::(\d{2}))?/);
-    if (m2) {
-      let h = +m2[5];
-      if (m2[4] === "下午" && h < 12) h += 12;
-      if (m2[4] === "上午" && h === 12) h = 0;
-      return new Date(+m2[1], +m2[2] - 1, +m2[3], h, +m2[6], +(m2[7] || 0)).getTime();
-    }
-    const d = Date.parse(f);
-    return isNaN(d) ? null : d;
+  // Runs independently of loadChart() so the "最新連署" list shows up as
+  // soon as it's ready, without waiting on (or blocking) the chart query.
+  async loadRecent() {
+    const gid = this.props.gid ?? "1586837908";
+    try {
+      const recentRes = await this.runQuery(gid, "select A,B,C order by A desc limit 12");
+      const recent = (recentRes.table.rows || []).map(r => {
+        const c = r.c || [];
+        return { name: (c[1] && (c[1].f ?? c[1].v)) || "", org: (c[2] && (c[2].f ?? c[2].v)) || "" };
+      });
+      this.setState({ recent });
+    } catch (e) { /* keep whatever recent list is already showing */ }
   }
 
   fmtClock(t) {
@@ -226,27 +237,26 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const rows = this.state.rows || [];
+    const loaded = this.state.total != null;
+    const rawBuckets = this.state.hourBuckets || [];
     const now = this.state.updated ? this.state.updated.getTime() : Date.now();
     const mode = this.state.mode;
     const cumulative = mode === "cumulative";
-    const total = rows.length;
-    const since = ms => rows.filter(r => r.t >= now - ms).length;
+    const total = this.state.total || 0;
 
     const W = 1000, H = 320, PL = 60, PR = 40, PT = 16, PB = 0;
-    const t0 = rows.length ? rows[0].t : now - 36e5;
-    const t1 = rows.length ? Math.max(rows[rows.length - 1].t, now) : now;
+    const t0 = rawBuckets.length ? rawBuckets[0].t : now - 36e5;
+    const t1 = now;
     const span = Math.max(t1 - t0, 36e5);
     const sx = t => PL + ((t - t0) / span) * (W - PL - PR);
 
-    // hourly buckets
+    // dense hourly buckets: the server only returns hours that had at least
+    // one signup, so fill in the gaps (and cap them at "now") the same way
+    // the old per-row version did.
+    const bucketByHour = new Map(rawBuckets.map(b => [b.t, b.n]));
     const h0 = new Date(t0); h0.setMinutes(0, 0, 0);
     const buckets = [];
-    for (let t = h0.getTime(); t <= t1; t += 36e5) buckets.push({ t, n: 0 });
-    rows.forEach(r => {
-      const i = Math.floor((r.t - h0.getTime()) / 36e5);
-      if (buckets[i]) buckets[i].n++;
-    });
+    for (let t = h0.getTime(); t <= t1; t += 36e5) buckets.push({ t, n: bucketByHour.get(t) || 0 });
     const maxHour = Math.max(1, ...buckets.map(b => b.n));
 
     const niceMax = v => { const p = Math.pow(10, Math.floor(Math.log10(Math.max(v, 1)))); return Math.ceil(v / (p / 2)) * (p / 2); };
@@ -276,11 +286,14 @@ class Component extends DCLogic {
       });
     }
 
+    // running cumulative total per hour bucket — feeds both the cumulative
+    // line chart and the cumulative-mode hover lookup below
+    let running = 0;
+    const cumBuckets = buckets.map(b => (running += b.n));
+
     let linePath = "", areaPath = "", bars = [];
-    if (cumulative && rows.length) {
-      const step = Math.max(1, Math.ceil(rows.length / 900));
-      const pts = [];
-      for (let i = 0; i < rows.length; i += step) pts.push([sx(rows[i].t), sy(i + 1)]);
+    if (cumulative && buckets.length) {
+      const pts = buckets.map((b, i) => [sx(Math.min(b.t + 36e5, t1)), sy(cumBuckets[i])]);
       pts.push([sx(t1), sy(total)]);
       linePath = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
       areaPath = linePath + ` L${sx(t1).toFixed(1)} ${sy(0).toFixed(1)} L${sx(t0).toFixed(1)} ${sy(0).toFixed(1)} Z`;
@@ -294,15 +307,14 @@ class Component extends DCLogic {
 
     const hv = this.state.hover;
     let hover = null;
-    if (hv && rows.length) {
+    if (hv && buckets.length) {
+      const idx = Math.min(Math.max(Math.round((Math.min(Math.max(hv.px, PL), W - PR) - PL) / (W - PL - PR) * span / 36e5), 0), buckets.length - 1);
+      const b = buckets[idx];
       if (cumulative) {
-        const t = t0 + (Math.min(Math.max(hv.px, PL), W - PR) - PL) / (W - PL - PR) * span;
-        let n = 0; while (n < rows.length && rows[n].t <= t) n++;
-        hover = { x: sx(t), y: sy(n), time: this.fmtClock(t), value: n.toLocaleString("en-US") + " 人累計" };
+        const bucketEnd = Math.min(b.t + 36e5, t1);
+        hover = { x: sx(bucketEnd), y: sy(cumBuckets[idx]), time: this.fmtClock(bucketEnd), value: cumBuckets[idx].toLocaleString("en-US") + " 人累計" };
       } else {
-        const idx = Math.round((Math.min(Math.max(hv.px, PL), W - PR) - PL) / (W - PL - PR) * span / 36e5);
-        const b = buckets[Math.min(Math.max(idx, 0), buckets.length - 1)];
-        if (b) hover = { x: sx(b.t), y: sy(b.n), time: this.fmtClock(b.t) + " 起一小時", value: "+" + b.n + " 人" };
+        hover = { x: sx(b.t), y: sy(b.n), time: this.fmtClock(b.t) + " 起一小時", value: "+" + b.n + " 人" };
       }
     }
 
@@ -311,6 +323,12 @@ class Component extends DCLogic {
 
     const peak = buckets.reduce((a, b) => (b.n > a.n ? b : a), { n: 0, t: t0 });
     const hours = Math.max(1, (t1 - t0) / 36e5);
+    // exclude the last bucket (the current, still-incomplete hour) so a
+    // freshly-turned-over hour doesn't drag the average down
+    const fullBuckets = buckets.slice(0, -1);
+    const avgPerHour = fullBuckets.length
+      ? (fullBuckets.reduce((s, b) => s + b.n, 0) / fullBuckets.length).toFixed(1)
+      : (total / hours).toFixed(1);
 
     return {
       petitionUrl: this.props.petitionUrl ?? "https://events.pts.org.tw/petition/",
@@ -319,8 +337,8 @@ class Component extends DCLogic {
       refreshText: (this.props.refreshMinutes ?? 5) + " 分鐘",
       hasError: this.state.error,
       totalText: total ? total.toLocaleString("en-US") : "—",
-      lastHourText: rows.length ? "+" + since(36e5) : "—",
-      last24Text: rows.length ? "+" + since(864e5) : "—",
+      lastHourText: loaded ? "+" + (this.state.lastHour || 0) : "—",
+      last24Text: loaded ? "+" + (this.state.last24h || 0) : "—",
       updatedText: this.state.updated ? "更新於 " + this.fmtClock(this.state.updated.getTime()) : "讀取中…",
       isCumulative: cumulative, isHourly: !cumulative,
       cumBtnStyle: cumulative ? segOn : segOff,
@@ -331,7 +349,7 @@ class Component extends DCLogic {
       areaFill: "color-mix(in srgb, var(--color-accent-300) 30%, transparent)",
       lineStroke: "var(--color-accent-700)",
       legendText: cumulative ? "累計連署人數" : "每小時新增連署人數",
-      rangeText: rows.length ? this.fmtClock(t0) + " – " + this.fmtClock(t1) : "",
+      rangeText: loaded ? this.fmtClock(t0) + " – " + this.fmtClock(t1) : "",
       hoverBoxStyle: hover
         ? `position:absolute; pointer-events:none; top:8px; left:${(hover.x / 1000 * 100).toFixed(2)}%; transform:translateX(${hover.x > 620 ? "-108%" : "8px"}); background:var(--color-bg); border:1px solid var(--color-divider); border-radius:var(--radius-md); padding:10px 14px; box-shadow:var(--shadow-sm); white-space:nowrap`
         : "display:none",
@@ -352,11 +370,11 @@ class Component extends DCLogic {
       onLeave: () => this.setState({ hover: null }),
       stats: [
         { label: "連署總人數", value: total ? total.toLocaleString("en-US") : "—" },
-        { label: "平均每小時", value: rows.length ? (total / hours).toFixed(1) : "—" },
-        { label: "單一小時最高", value: rows.length ? peak.n + " 人" : "—" },
-        { label: "尖峰時段", value: rows.length ? this.fmtClock(peak.t) : "—" }
+        { label: "平均每小時", value: loaded ? avgPerHour : "—" },
+        { label: "單一小時最高", value: loaded ? peak.n + " 人" : "—" },
+        { label: "尖峰時段", value: loaded ? this.fmtClock(peak.t) : "—" }
       ],
-      recent: rows.slice(-12).reverse().map((r, i) => ({ no: "#" + (total - i), name: r.name, org: r.org }))
+      recent: (this.state.recent || []).map((r, i) => ({ no: "#" + (total - i), name: r.name, org: r.org }))
     };
   }
 }
