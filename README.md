@@ -2,6 +2,8 @@
 
 追蹤「守護公視全民連署」的連署趨勢,並整理立法院 115 年度公視預算刪凍提案的相關資訊。以純靜態網頁部署在 GitHub Pages:https://mrorz.github.io/pts-budget-2026/
 
+![網站截圖](./screenshots/og-image.png)
+
 ## 資料來源
 
 - **連署趨勢**:即時讀取[連署試算表](https://docs.google.com/spreadsheets/d/16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw/edit),用 Google Visualization Query Language(gviz)在伺服器端先做小時聚合,瀏覽器只下載聚合後的結果。
