@@ -26,39 +26,19 @@
 
   <div style="max-width:1120px; margin:0 auto; padding:0 clamp(16px, 4vw, 32px)">
 
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:clamp(24px, 4vw, 48px); padding:clamp(28px, 4vw, 44px) 0 28px; align-items:start">
+    <div style="padding:clamp(28px, 4vw, 44px) 0 28px">
       <div>
         <div style="font-size:12px; letter-spacing:.22em; color:var(--color-accent-700); font-variant-numeric:tabular-nums; margin-bottom:14px">守護公視 · 全民連署行動</div>
-        <h1 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:400; font-size:clamp(27px, 4.6vw, 42px); line-height:1.24; margin:0 0 16px; letter-spacing:.01em; text-wrap:pretty"><span style="font-size: clamp(27px, 4.6vw, 42px); letter-spacing: 0.01em; text-wrap-mode: initial;">連署守護</span>公視預算</h1>
+        <h1 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:400; font-size:clamp(27px, 4.6vw, 42px); line-height:1.24; margin:0 0 16px; letter-spacing:.01em; text-wrap:pretty">和 <span style="color:var(--color-accent-800); font-variant-numeric:tabular-nums lining-nums">{{ totalText }}</span> 人一起守護公視預算</h1>
         <p style="margin:0 0 16px; font-size:clamp(16px, 1.4vw, 18px); line-height:1.7; color:var(--color-neutral-900); max-width:46em">立法院延會將於 8 月底結束。在那之前，每一份連署都是立委看得見的民意。</p>
-        <p style="margin:0 0 14px; font-size:16px; text-align:justify; color:var(--color-neutral-800); max-width:46em">115 年度公視政府捐贈經費遭立委提案刪減及凍結逾 10 億元，接近今年約 21 億元捐助預算的一半；7 月 30 日，公視、小公視與公視台語台共 53 位第一線製作人發起「公視是全體國民的公視，籲請立委勿凍刪預算」連署。</p>
-        <p style="margin:0 0 22px; font-size:16px; text-align:justify; color:var(--color-neutral-800); max-width:46em">本頁面由公共電視之觀眾製作，追蹤連署趨勢，並提供相關資訊。</p>
+        <p style="margin:0 0 14px; font-size:16px; text-align:justify; color:var(--color-neutral-800); max-width:46em">115 年度公視政府捐贈經費遭立委提案刪減及凍結逾 10 億元，接近今年約 21 億元捐助預算的一半；7 月 30 日，公視、小公視與公視台語台共 53 位第一線製作人發起「<a href="https://events.pts.org.tw/petition/">公視是全體國民的公視，籲請立委勿凍刪預算</a>」連署。</p>
+        <p style="margin:0 0 22px; font-size:16px; text-align:justify; color:var(--color-neutral-800); max-width:46em">本頁面由公共電視之觀眾自行彙整公開資訊、使用 AI 分析組裝，用以追蹤連署趨勢，並提供相關資訊。</p>
         <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center">
           <a class="btn btn-primary" href="{{ petitionUrl }}" target="_blank" rel="noopener" style="font-family:var(--font-body), 'Noto Serif TC', serif; font-size:16px; padding:12px 26px">閱讀說帖並加入連署</a>
 
         </div>
       </div>
 
-      <div class="card elev-sm" style="padding:26px; border:1px solid var(--color-divider); border-radius:var(--radius-md); background:var(--color-neutral-100)">
-        <div style="font-size:12px; letter-spacing:.2em; color:var(--color-neutral-600)">目前連署人數</div>
-        <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:400; font-size:clamp(46px, 9vw, 68px); line-height:1.05; font-variant-numeric:tabular-nums lining-nums; margin:6px 0 2px; color:var(--color-accent-800)">{{ totalText }}</div>
-        <div style="height:1px; background:var(--color-divider); margin:16px 0"></div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
-          <div>
-            <div style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600)">最近一小時</div>
-            <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:28px; font-variant-numeric:tabular-nums; line-height:1.2">{{ lastHourText }}</div>
-          </div>
-          <div>
-            <div style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600)">最近 24 小時</div>
-            <div style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:28px; font-variant-numeric:tabular-nums; line-height:1.2">{{ last24Text }}</div>
-          </div>
-        </div>
-        <div style="height:1px; background:var(--color-divider); margin:16px 0"></div>
-        <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--color-neutral-600); font-variant-numeric:tabular-nums">
-          <span style="width:6px; height:6px; border-radius:50%; background:var(--color-accent); animation:om-pulse 2.4s ease-in-out infinite"></span>
-          <span>{{ updatedText }}</span>
-        </div>
-      </div>
     </div>
 
     <div style="height:1px; background:var(--color-divider)"></div>
@@ -67,7 +47,10 @@
       <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:28px">
         <div>
           <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(24px, 3.6vw, 34px); margin:0 0 6px; letter-spacing:.02em">連署趨勢</h2>
-          <div style="font-size:14px; color:var(--color-neutral-600)">每 {{ refreshText }}自動重讀公視連署名單試算表</div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:14px; color:var(--color-neutral-600); font-variant-numeric:tabular-nums">
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--color-accent); animation:om-pulse 2.4s ease-in-out infinite; flex:none"></span>
+            <span>每 {{ refreshText }}自動重讀公視連署名單試算表 · {{ updatedText }}</span>
+          </div>
         </div>
         <div class="seg" role="group" style="align-self:center">
           <button class="seg-opt" type="button" onClick="{{ setCumulative }}" aria-pressed="{{ isCumulative }}" style="{{ cumBtnStyle }}">累計人數</button>
@@ -130,6 +113,151 @@
       </div>
     </div>
 
+    <div style="height:1px; background:var(--color-divider); margin-top:clamp(36px, 6vw, 64px)"></div>
+
+    <div style="padding:clamp(28px, 4vw, 44px) 0 8px">
+      <div style="font-size:12px; letter-spacing:.22em; color:var(--color-accent-700); margin-bottom:12px">被凍刪的是什麼 · 其一</div>
+      <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(24px, 3.6vw, 34px); margin:0 0 10px; letter-spacing:.02em">這 21 億元，公視 2026 年打算怎麼用？</h2>
+      <p style="margin:0 0 26px; font-size:16px; line-height:1.8; color:var(--color-neutral-800); max-width:52em; text-align:justify">115 年度<a href="https://www.moc.gov.tw/News_Content.aspx?n=143&s=242713">文化部單位預算</a>在「影視及流行音樂推動及輔導」項下，編列「對財團法人公視基金會捐助」經常門 2,095,750 千元，連同資本門共 2,121,850 千元。經常門依用途分為三塊，點開任一塊可以逐層看到部門、節目群，一直到單一節目的編列金額與<a href="https://info.pts.org.tw/%E6%95%B8%E6%93%9A%E5%85%AC%E9%96%8B%E8%B3%87%E8%A8%8A/%E9%A0%90%E6%B1%BA%E7%AE%97%E5%8F%8A%E8%B2%A1%E7%94%A2%E7%9B%AE%E9%8C%84">公視 115 年預算書</a>頁碼。</p>
+
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:26px">
+        <sc-for list="{{ budgetTabs }}" as="t" hint-placeholder-count="3">
+          <button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.pressed }}" style="{{ t.style }}">
+            <span style="display:block; font-size:15px; margin-bottom:6px">{{ t.label }}</span>
+            <span style="display:block; font-family:var(--font-heading), 'Noto Serif TC', serif; font-size:clamp(19px, 2.6vw, 23px); font-variant-numeric:tabular-nums; color:var(--color-accent-700)">{{ t.sum }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(0,1fr) clamp(84px,14vw,112px) clamp(50px,8vw,64px) clamp(60px,9vw,78px); gap:0 clamp(8px,1.6vw,18px); padding:0 4px 10px; font-size:12px; letter-spacing:.1em; color:var(--color-neutral-600)">
+        <span>部門／節目群／節目</span>
+        <span style="text-align:right">金額（千元）</span>
+        <span style="text-align:right">佔比</span>
+        <span style="text-align:right">出處</span>
+      </div>
+
+      <sc-if value="{{ budgetLoading }}" hint-placeholder-val="{{ false }}">
+        <div style="border-top:1px solid var(--color-divider); padding:28px 4px; font-size:15px; color:var(--color-neutral-600)">讀取預算明細中…</div>
+      </sc-if>
+
+      <div style="border-bottom:1px solid var(--color-divider)">
+        <sc-for list="{{ budgetRows }}" as="r" hint-placeholder-count="8">
+          <div style="{{ r.rowStyle }}" onClick="{{ r.onClick }}">
+            <div style="{{ r.labelStyle }}"><span style="{{ r.caretStyle }}">{{ r.caret }}</span><span>{{ r.label }}</span></div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums; font-size:15px">{{ r.amount }}</div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums; font-size:13px; color:var(--color-neutral-600)">{{ r.pct }}</div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums; font-size:12px; color:var(--color-neutral-500); white-space:nowrap">{{ r.page }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="padding:18px 4px 0; font-size:14px; color:var(--color-neutral-800); line-height:1.9; text-align:justify; max-width:56em; border-top:1px solid var(--color-divider); margin-top:0">{{ budgetNote }}</div>
+
+      <sc-if value="{{ hasExcluded }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:14px; padding:16px 18px; border-left:2px solid var(--color-accent-400); font-size:13.5px; color:var(--color-neutral-700); line-height:1.9; text-align:justify; max-width:56em">
+          <div style="margin-bottom:8px; color:var(--color-neutral-800)">下列項目的資金來源不是文化部對公視的 9 億元捐贈，因此未列入上表：</div>
+          <sc-for list="{{ budgetExcluded }}" as="e" hint-placeholder-count="3">
+            <div style="margin-bottom:6px"><span style="color:var(--color-text)">{{ e.label }}</span>（{{ e.amount }} 千元）——{{ e.reason }}</div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <div style="padding:14px 4px 0; font-size:13px; color:var(--color-neutral-600); line-height:1.8; text-align:justify; max-width:56em">單位：新臺幣千元。金額為原始支出編列數；「佔比」為該列佔所屬類別支出總額的比例，非捐贈比例。出處為《財團法人公共電視文化事業基金會 115 年度預算書》頁碼。整理表：<a href="{{ budgetSheetUrl }}" target="_blank" rel="noopener">21 億捐款流向階層表</a>。</div>
+    </div>
+
+    <div style="height:1px; background:var(--color-divider); margin-top:clamp(36px, 6vw, 64px)"></div>
+
+    <div style="padding:clamp(28px, 4vw, 44px) 0 8px">
+      <div style="font-size:12px; letter-spacing:.22em; color:var(--color-accent-700); margin-bottom:12px">誰提的、砍多少 · 其二</div>
+      <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(24px, 3.6vw, 34px); margin:0 0 10px; letter-spacing:.02em">五案刪凍提案，合計影響逾 10 億元</h2>
+      <p style="margin:0 0 8px; font-size:16px; line-height:1.8; color:var(--color-neutral-800); max-width:52em; text-align:justify">經立法院教育及文化委員會以及黨團協商審查 115 年度文化部預算時，共有五案針對「對財團法人公視基金會捐助」21 億 2,185 萬元提出刪減或凍結。若全數通過，刪除 8,185 萬元、凍結 9 億 4,155 萬元，合計 10 億 2,340 萬元、約占全年捐助的 48%。以下依影響程度排序（刪除金額優先，其次為凍結金額）。</p>
+      <p style="margin:0 0 28px; font-size:14px; color:var(--color-neutral-600); max-width:52em">凍結與刪除不同：刪除是直接不編列；凍結是錢仍在，但必須先完成指定條件（多為兩個月內提出報告並經委員會同意）才能動支，在此之前無法執行。</p>
+
+      <div style="display:grid; gap:clamp(14px, 2vw, 20px)">
+
+        <div style="border:1px solid var(--color-accent); border-radius:var(--radius-md); padding:clamp(20px, 3vw, 30px)">
+          <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
+            <span style="font-family:var(--font-heading), serif; font-size:clamp(28px, 4vw, 40px); line-height:1; color:var(--color-accent-400); font-variant-numeric:tabular-nums">01</span>
+            <h3 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(19px, 2.6vw, 25px); margin:0; letter-spacing:.02em; flex:1 1 260px">減列 5,000 萬元，並凍結三成（6 億 2,155 萬元）</h3>
+            <span class="tag tag-accent" style="white-space:nowrap">保留，送院會處理</span>
+          </div>
+          <div style="display:flex; height:8px; border:1px solid var(--color-divider); border-radius:2px; overflow:hidden; margin-bottom:10px">
+            <span style="width:2.36%; background:var(--color-accent-700)"></span>
+            <span style="width:29.29%; background:color-mix(in srgb, var(--color-accent-300) 70%, transparent)"></span>
+          </div>
+          <div style="font-size:12.5px; color:var(--color-neutral-600); margin-bottom:16px; font-variant-numeric:tabular-nums">影響 6 億 7,155 萬元 · 占全年捐助 31.6%</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px 28px; font-size:15px; line-height:1.8">
+            <div><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">提案人／連署人</span>羅智強（提案）；謝龍介、葉元之（連署）</div>
+            <div><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">解凍條件</span>文化部須於 2 個月內向立法院教育及文化委員會提出專案報告並經同意後，始得動支。</div>
+          </div>
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--color-divider); font-size:14.5px; line-height:1.9; color:var(--color-neutral-800); text-align:justify"><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">提案理由</span>指第七屆董監事任期於 114 年 5 月屆滿，文化部延至 114 年 12 月 17 日才提名第八屆董事與監察人，延宕逾一年；並主張《公共電視法》修正後延任條款已刪除，文化部仍讓第七屆董監事延任。</div>
+        </div>
+
+        <div style="border:1px solid var(--color-divider); border-radius:var(--radius-md); padding:clamp(20px, 3vw, 30px)">
+          <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
+            <span style="font-family:var(--font-heading), serif; font-size:clamp(28px, 4vw, 40px); line-height:1; color:var(--color-accent-400); font-variant-numeric:tabular-nums">02</span>
+            <h3 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(19px, 2.6vw, 25px); margin:0; letter-spacing:.02em; flex:1 1 260px">刪除 2,185 萬元，並凍結 2 億元</h3>
+            <span class="tag tag-outline" style="white-space:nowrap">關係文書待查</span>
+          </div>
+          <div style="display:flex; height:8px; border:1px solid var(--color-divider); border-radius:2px; overflow:hidden; margin-bottom:10px">
+            <span style="width:1.03%; background:var(--color-accent-700)"></span>
+            <span style="width:9.43%; background:color-mix(in srgb, var(--color-accent-300) 70%, transparent)"></span>
+          </div>
+          <div style="font-size:12.5px; color:var(--color-neutral-600); margin-bottom:16px; font-variant-numeric:tabular-nums">影響 2 億 2,185 萬元 · 占全年捐助 10.5%</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px 28px; font-size:15px; line-height:1.8">
+            <div><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">提案人</span>翁曉玲、林沛祥</div>
+            <div><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">解凍條件</span>尚未取得提案關係文書，條件與理由待補。</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--color-accent); border-radius:var(--radius-md); padding:clamp(20px, 3vw, 30px)">
+          <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
+            <span style="font-family:var(--font-heading), serif; font-size:clamp(28px, 4vw, 40px); line-height:1; color:var(--color-accent-400); font-variant-numeric:tabular-nums">03</span>
+            <h3 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(19px, 2.6vw, 25px); margin:0; letter-spacing:.02em; flex:1 1 260px">凍結 1 億元</h3>
+            <span class="tag tag-accent" style="white-space:nowrap">保留，送院會處理</span>
+          </div>
+          <div style="display:flex; height:8px; border:1px solid var(--color-divider); border-radius:2px; overflow:hidden; margin-bottom:10px">
+            <span style="width:4.71%; background:color-mix(in srgb, var(--color-accent-300) 70%, transparent)"></span>
+          </div>
+          <div style="font-size:12.5px; color:var(--color-neutral-600); margin-bottom:16px; font-variant-numeric:tabular-nums">影響 1 億元 · 占全年捐助 4.7%</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px 28px; font-size:15px; line-height:1.8">
+            <div><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">提案人／連署人</span>蔡春綢（提案）；羅智強、羅廷瑋（連署）</div>
+            <div><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">解凍條件</span>公視基金會須於 2 個月內向立法院教育及文化委員會提出書面報告後，始得動支。</div>
+          </div>
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--color-divider); font-size:14.5px; line-height:1.9; color:var(--color-neutral-800); text-align:justify"><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">報告應包含</span>近 3 年度收支短絀、自籌收入比率、政府補助依存度、開源節流措施、兒少節目質性指標研議、臺語台節目收視與人才媒合成效、公共服務指標、TaiwanPlus 與公視數位治理銜接，以及董事會對經營自主與財務永續的監督機制與改善期程。</div>
+        </div>
+
+        <div style="border:1px solid var(--color-divider); border-radius:var(--radius-md); padding:clamp(20px, 3vw, 30px)">
+          <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
+            <span style="font-family:var(--font-heading), serif; font-size:clamp(28px, 4vw, 40px); line-height:1; color:var(--color-accent-400); font-variant-numeric:tabular-nums">04</span>
+            <h3 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(19px, 2.6vw, 25px); margin:0; letter-spacing:.02em; flex:1 1 260px">刪除 1,000 萬元</h3>
+            <span class="tag tag-outline" style="white-space:nowrap">關係文書待查</span>
+          </div>
+          <div style="display:flex; height:8px; border:1px solid var(--color-divider); border-radius:2px; overflow:hidden; margin-bottom:10px">
+            <span style="width:0.47%; background:var(--color-accent-700)"></span>
+          </div>
+          <div style="font-size:12.5px; color:var(--color-neutral-600); margin-bottom:16px; font-variant-numeric:tabular-nums">影響 1,000 萬元 · 占全年捐助 0.5%（刪除後不再編列）</div>
+          <div style="font-size:15px; line-height:1.8"><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">提案人</span>王鴻薇、林沛祥</div>
+        </div>
+
+        <div style="border:1px solid var(--color-divider); border-radius:var(--radius-md); padding:clamp(20px, 3vw, 30px)">
+          <div style="display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px">
+            <span style="font-family:var(--font-heading), serif; font-size:clamp(28px, 4vw, 40px); line-height:1; color:var(--color-accent-400); font-variant-numeric:tabular-nums">05</span>
+            <h3 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(19px, 2.6vw, 25px); margin:0; letter-spacing:.02em; flex:1 1 260px">凍結 2,000 萬元</h3>
+            <span class="tag tag-outline" style="white-space:nowrap">關係文書待查</span>
+          </div>
+          <div style="display:flex; height:8px; border:1px solid var(--color-divider); border-radius:2px; overflow:hidden; margin-bottom:10px">
+            <span style="width:0.94%; background:color-mix(in srgb, var(--color-accent-300) 70%, transparent)"></span>
+          </div>
+          <div style="font-size:12.5px; color:var(--color-neutral-600); margin-bottom:16px; font-variant-numeric:tabular-nums">影響 2,000 萬元 · 占全年捐助 0.9%</div>
+          <div style="font-size:15px; line-height:1.8"><span style="font-size:12px; letter-spacing:.14em; color:var(--color-neutral-600); display:block; margin-bottom:4px">提案人</span>陳清龍</div>
+        </div>
+
+      </div>
+
+      <div style="padding:18px 4px 0; font-size:13px; color:var(--color-neutral-600); line-height:1.8; text-align:justify; max-width:56em">刪凍金額與提案人依 8 月 1 日<a href="https://news.ltn.com.tw/news/politics/breakingnews/5524942" target="_blank" rel="noopener">自由時報報導</a>（立委林宜瑾說明）整理；提案理由與解凍條件引自<a href="https://ppg.ly.gov.tw/ppg/bills/303110226210000/details" target="_blank" rel="noopener">《中華民國 115 年度中央政府總預算案審查總報告》關係文書</a>，其中羅智強案與蔡春綢案於報告中列為「保留，送院會處理」；其餘三案的關係文書尚待查找，若你手上有，歡迎補充。條圖以全年捐助 21 億 2,185 萬元為基準，深色為刪除、淺色為凍結。</div>
+    </div>
+
     <div style="margin:clamp(32px, 5vw, 56px) 0; border:1px solid var(--color-accent); border-radius:var(--radius-md); padding:clamp(24px, 4vw, 44px) clamp(20px, 4vw, 48px); display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:clamp(20px, 3vw, 40px); align-items:center; justify-items:start">
       <div>
         <h2 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:500; font-size:clamp(22px, 3.4vw, 32px); margin:0 0 10px; letter-spacing:.02em">說帖與連署書都在這裡</h2>
@@ -172,14 +300,32 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;petitionUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://events.pts.org.tw/petition/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;連結&quot;},&quot;gid&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1586837908&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;refreshMinutes&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:60,&quot;unit&quot;:&quot;分&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;資料來源&quot;},&quot;showRecent&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;版面&quot;}}">
 const SHEET_ID = "16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw";
+// The FY115 budget book is fixed once the fiscal year is enacted (only ever
+// touched again for a correction), unlike the constantly-growing signature
+// sheet — so it's snapshotted into ./budget-data.json at build time instead
+// of being fetched live on every page load. BUDGET_SHEET_ID is kept only for
+// the "查看原始試算表" citation link, not for fetching.
+const BUDGET_SHEET_ID = "1JDoZ72lLq2rF-bsGJaSg5Hetr8eZp23y67yj2-2NTyA";
+const BUDGET_NOTES = {
+  kids: "文化部捐贈 600,000 千元，等於本類支出總額 600,000 千元，100% 由捐贈支應（經常門 583,900＋資本門 16,100 千元），與文化部捐助經費分析表逐項核對一致。",
+  tgi: "文化部捐贈 621,850 千元（經常門 611,850＋資本門 10,000 千元），佔臺語台支出總額 629,850 千元的 98.73%，其餘由自籌收入支應。",
+  pts: "文化部捐贈 900,000 千元，僅佔上表支出總額 1,385,495 千元的 64.96%。由於公共電視台營運並非全數由文化部捐贈支應，因此無法逐項對應「哪一筆來自文化部捐贈」，僅能將支出全數列出供閱聽人參考。"
+};
+const BUDGET_TABS = [
+  { key: "kids", label: "兒少節目內容產製", sum: "5 億 8,390 萬元" },
+  { key: "tgi", label: "臺語台營運", sum: "6 億 1,185 萬元" },
+  { key: "pts", label: "公共電視臺營運", sum: "9 億元" }
+];
 
 class Component extends DCLogic {
-  state = { total: null, lastHour: null, last24h: null, hourBuckets: null, recent: null, error: false, mode: "cumulative", hover: null, updated: null };
+  state = { total: null, hourBuckets: null, recent: null, error: false, mode: "cumulative", hover: null, updated: null,
+            budget: {}, budgetTab: "kids", open: {} };
 
   componentDidMount() {
     this.svg = React.createRef();
     this.loadChart();
     this.loadRecent();
+    this.loadBudget();
     const mins = Number(this.props.refreshMinutes ?? 5);
     this.timer = setInterval(() => { this.loadChart(); this.loadRecent(); }, Math.max(1, mins) * 60000);
     this.onResize = () => this.forceUpdate();
@@ -198,8 +344,8 @@ class Component extends DCLogic {
   // Ask Google's Visualization Query Language (the same engine behind Sheets'
   // embedded charts) to pre-aggregate hourly counts server-side, so the
   // client only ever downloads ~one row per hour instead of the whole
-  // (constantly growing) signature list. Total/last-hour/last-24h are all
-  // derived from these same hourly buckets rather than separate queries.
+  // (constantly growing) signature list. Total is derived from these same
+  // hourly buckets rather than a separate query.
   async loadChart() {
     const gid = this.props.gid ?? "1586837908";
     try {
@@ -209,10 +355,8 @@ class Component extends DCLogic {
         const t = new Date(c[0]?.v ?? 0, c[1]?.v ?? 0, c[2]?.v ?? 1, c[3]?.v ?? 0).getTime();
         return { t, n: c[4]?.v ?? 0 };
       }).sort((a, b) => a.t - b.t);
-      const now = Date.now();
       const total = hourBuckets.reduce((sum, b) => sum + b.n, 0);
-      const sumSince = ms => hourBuckets.filter(b => b.t >= now - ms).reduce((sum, b) => sum + b.n, 0);
-      this.setState({ hourBuckets, total, lastHour: sumSince(36e5), last24h: sumSince(864e5), error: false, updated: new Date() });
+      this.setState({ hourBuckets, total, error: false, updated: new Date() });
     } catch (e) { this.setState({ error: true }); }
   }
 
@@ -228,6 +372,64 @@ class Component extends DCLogic {
       });
       this.setState({ recent });
     } catch (e) { /* keep whatever recent list is already showing */ }
+  }
+
+  // Loads the pre-snapshotted budget table (see BUDGET_SHEET_ID comment
+  // above) and parses each tab's rows into a department/group/item tree.
+  async loadBudget() {
+    try {
+      const data = await fetch("./budget-data.json").then(r => r.json());
+      const budget = {};
+      BUDGET_TABS.forEach(t => { budget[t.key] = this.parseBudget(data[t.key] || []); });
+      this.setState({ budget });
+    } catch (e) { this.setState({ budget: { error: true } }); }
+  }
+
+  parseBudget(rows) {
+    const head = rows.findIndex(r => (r[0] || "").trim() === "部門");
+    const nodes = []; const excluded = []; let dept = null, group = null, total = null, inExcluded = false;
+    rows.slice(head + 1).forEach(r => {
+      const a = (r[0] || "").trim(), b = (r[1] || "").trim(), c = (r[2] || "").trim();
+      const rec = { amount: (r[3] || "").trim(), pct: (r[4] || "").trim(), page: (r[5] || "").trim(), note: (r[6] || "").trim() };
+      if (!a && !b && !c) return;
+      if (a === "部門" || a.indexOf("附錄") === 0) { inExcluded = true; return; }
+      if (inExcluded) {
+        excluded.push({ label: a + (b ? "－" + b : ""), amount: rec.amount, reason: rec.note });
+        return;
+      }
+      if (a.charAt(0) === "【") { total = rec; return; }
+      if (a) { dept = Object.assign({ label: a, children: [] }, rec); nodes.push(dept); group = null; }
+      else if (b) { group = Object.assign({ label: b, children: [] }, rec); (dept ? dept.children : nodes).push(group); }
+      else if (c) { const item = Object.assign({ label: c, children: null }, rec); ((group || dept) ? (group || dept).children : nodes).push(item); }
+    });
+    return { nodes, total, excluded };
+  }
+
+  flattenBudget(nodes, depth, prefix, out) {
+    const open = this.state.open;
+    const pads = [0, 22, 44];
+    nodes.forEach(n => {
+      const key = prefix + "/" + n.label;
+      const kids = n.children && n.children.length ? n.children : null;
+      const isOpen = !!open[key];
+      const tone = depth === 0 ? "var(--color-text)" : depth === 1 ? "var(--color-neutral-800)" : "var(--color-neutral-700)";
+      const size = depth === 0 ? 17 : depth === 1 ? 15 : 14.5;
+      const fam = depth === 0 ? "var(--font-heading), 'Noto Serif TC', serif" : "inherit";
+      out.push({
+        key,
+        label: n.label,
+        caret: kids ? (isOpen ? "–" : "+") : "",
+        amount: n.amount || "—",
+        pct: n.pct || "",
+        page: n.page ? "p." + n.page : "",
+        onClick: kids ? () => this.setState(s => ({ open: Object.assign({}, s.open, { [key]: !s.open[key] }) })) : null,
+        rowStyle: `display:grid; grid-template-columns:minmax(0,1fr) clamp(84px,14vw,112px) clamp(50px,8vw,64px) clamp(60px,9vw,78px); gap:0 clamp(8px,1.6vw,18px); align-items:baseline; padding:${depth === 0 ? "13px" : "9px"} 4px; border-top:1px solid var(--color-divider); ${depth === 0 ? "background:color-mix(in srgb, var(--color-accent-100) 45%, transparent);" : ""} cursor:${kids ? "pointer" : "default"}`,
+        labelStyle: `display:flex; gap:10px; align-items:baseline; padding-left:${pads[Math.min(depth, 2)]}px; font-family:${fam}; font-size:${size}px; color:${tone}; line-height:1.5; overflow-wrap:anywhere`,
+        caretStyle: `display:inline-flex; width:16px; flex:none; justify-content:center; color:var(--color-accent-700); font-variant-numeric:tabular-nums; font-family:var(--font-body), serif; font-size:14px`
+      });
+      if (isOpen && kids) this.flattenBudget(kids, depth + 1, key, out);
+    });
+    return out;
   }
 
   fmtClock(t) {
@@ -330,15 +532,30 @@ class Component extends DCLogic {
       ? (fullBuckets.reduce((s, b) => s + b.n, 0) / fullBuckets.length).toFixed(1)
       : (total / hours).toFixed(1);
 
+    const bTab = this.state.budgetTab;
+    const bData = this.state.budget[bTab];
+    const budgetRows = bData ? this.flattenBudget(bData.nodes, 0, bTab, []) : [];
+
     return {
+      budgetTabs: BUDGET_TABS.map(t => ({
+        label: t.label,
+        sum: t.sum,
+        onClick: () => this.setState({ budgetTab: t.key }),
+        pressed: t.key === bTab,
+        style: `flex:1 1 180px; text-align:left; padding:14px 18px; border:1px solid ${t.key === bTab ? "var(--color-accent)" : "var(--color-divider)"}; border-radius:var(--radius-md); background:${t.key === bTab ? "color-mix(in srgb, var(--color-accent-100) 60%, transparent)" : "transparent"}; cursor:pointer; font-family:var(--font-body), 'Noto Serif TC', serif; color:var(--color-text); display:block`
+      })),
+      budgetRows,
+      budgetNote: BUDGET_NOTES[bTab],
+      budgetExcluded: (bData && bData.excluded) || [],
+      hasExcluded: !!(bData && bData.excluded && bData.excluded.length),
+      budgetLoading: !bData,
+      budgetSheetUrl: `https://docs.google.com/spreadsheets/d/${BUDGET_SHEET_ID}/edit`,
       petitionUrl: this.props.petitionUrl ?? "https://events.pts.org.tw/petition/",
       sheetUrl: `https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit?gid=${this.props.gid ?? "1586837908"}`,
       showRecent: this.props.showRecent ?? true,
       refreshText: (this.props.refreshMinutes ?? 5) + " 分鐘",
       hasError: this.state.error,
       totalText: total ? total.toLocaleString("en-US") : "—",
-      lastHourText: loaded ? "+" + (this.state.lastHour || 0) : "—",
-      last24Text: loaded ? "+" + (this.state.last24h || 0) : "—",
       updatedText: this.state.updated ? "更新於 " + this.fmtClock(this.state.updated.getTime()) : "讀取中…",
       isCumulative: cumulative, isHourly: !cumulative,
       cumBtnStyle: cumulative ? segOn : segOff,
