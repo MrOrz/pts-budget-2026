@@ -32,7 +32,7 @@
         <h1 style="font-family:var(--font-heading), 'Noto Serif TC', serif; font-weight:400; font-size:clamp(27px, 4.6vw, 42px); line-height:1.24; margin:0 0 16px; letter-spacing:.01em; text-wrap:pretty">和 <span style="color:var(--color-accent-800); font-variant-numeric:tabular-nums lining-nums">{{ totalText }}</span> 人一起守護公視預算</h1>
         <p style="margin: 0 0 16px; font-size: clamp(16px, 1.4vw, 18px); line-height: 1.7; color: var(--color-neutral-900); width: 100%">立法院延會將於 8 月底結束。在那之前，每一份連署都是立委看得見的民意。</p>
         <p style="margin: 0 0 14px; font-size: 16px; text-align: justify; color: var(--color-neutral-800); width: 100%">115 年度公視政府捐贈經費遭立委提案刪減及凍結逾 10 億元，接近今年約 21 億元捐助預算的一半；7 月 30 日，公視、小公視與公視台語台共 53 位第一線製作人發起「<a href="https://events.pts.org.tw/petition/">公視是全體國民的公視，籲請立委勿凍刪預算</a>」連署。</p>
-        <p style="margin: 0 0 22px; font-size: 16px; text-align: justify; color: var(--color-neutral-800); width: 100%">本頁面由公共電視之觀眾自行彙整公開資訊、使用 AI 分析組裝，用以追蹤連署趨勢，並提供相關資訊。</p>
+        <p style="margin: 0 0 22px; font-size: 16px; text-align: justify; color: var(--color-neutral-800); width: 100%">本頁面由公共電視之觀眾自行彙整公開資訊、使用 AI 分析組裝，用以追蹤連署趨勢，並提供相關資訊。若發現數字或說明有誤，歡迎到 <a href="https://github.com/MrOrz/pts-budget-2026/issues/" target="_blank" rel="noopener">GitHub issues</a> 回報。</p>
         <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center">
           <a class="btn btn-primary" href="{{ petitionUrl }}" target="_blank" rel="noopener" style="font-family:var(--font-body), 'Noto Serif TC', serif; font-size:16px; padding:12px 26px">閱讀說帖並加入連署</a>
 
@@ -154,7 +154,7 @@
       <div style="padding: 18px 4px 0; font-size: 14px; color: var(--color-neutral-800); line-height: 1.9; text-align: justify; border-top: 1px solid var(--color-divider); margin-top: 0; border-style: none">{{ budgetNote }}</div>
 
       <sc-if value="{{ hasExcluded }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:14px; padding:16px 18px; border-left:2px solid var(--color-accent-400); font-size:13.5px; color:var(--color-neutral-700); line-height:1.9; text-align:justify; max-width:56em">
+        <div style="margin-top: 14px; padding: 16px 18px; border-left: 2px solid var(--color-accent-400); font-size: 13.5px; color: var(--color-neutral-700); line-height: 1.9; text-align: justify">
           <div style="margin-bottom:8px; color:var(--color-neutral-800)">下列項目的資金來源不是文化部對公視的 9 億元捐贈，因此未列入上表：</div>
           <sc-for list="{{ budgetExcluded }}" as="e" hint-placeholder-count="3">
             <div style="margin-bottom:6px"><span style="color:var(--color-text)">{{ e.label }}</span>（{{ e.amount }} 千元）——{{ e.reason }}</div>
@@ -255,7 +255,7 @@
 
       </div>
 
-      <div style="padding:18px 4px 0; font-size:13px; color:var(--color-neutral-600); line-height:1.8; text-align:justify; max-width:56em">刪凍金額與提案人依 8 月 1 日<a href="https://news.ltn.com.tw/news/politics/breakingnews/5524942" target="_blank" rel="noopener">自由時報報導</a>（立委林宜瑾說明）整理；提案理由與解凍條件引自<a href="https://ppg.ly.gov.tw/ppg/bills/303110226210000/details" target="_blank" rel="noopener">《中華民國 115 年度中央政府總預算案審查總報告》關係文書</a>，其中羅智強案與蔡春綢案於報告中列為「保留，送院會處理」；其餘三案的關係文書尚待查找，若你手上有，歡迎補充。條圖以全年捐助 21 億 2,185 萬元為基準，深色為刪除、淺色為凍結。</div>
+      <div style="padding: 18px 4px 0; font-size: 13px; color: var(--color-neutral-600); line-height: 1.8; text-align: justify">刪凍金額與提案人依 8 月 1 日<a href="https://news.ltn.com.tw/news/politics/breakingnews/5524942" target="_blank" rel="noopener">自由時報報導</a>（立委林宜瑾說明）整理；提案理由與解凍條件引自<a href="https://ppg.ly.gov.tw/ppg/bills/303110226210000/details" target="_blank" rel="noopener">《中華民國 115 年度中央政府總預算案審查總報告》關係文書</a>，其中羅智強案與蔡春綢案於報告中列為「保留，送院會處理」；其餘三案的關係文書尚待查找，若你手上有，歡迎補充。條圖以全年捐助 21 億 2,185 萬元為基準，深色為刪除、淺色為凍結。</div>
     </div>
 
     <div style="margin:clamp(32px, 5vw, 56px) 0; border:1px solid var(--color-accent); border-radius:var(--radius-md); padding:clamp(24px, 4vw, 44px) clamp(20px, 4vw, 48px); display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:clamp(20px, 3vw, 40px); align-items:center; justify-items:start">
@@ -284,7 +284,7 @@
 
     <div style="height:1px; background:var(--color-divider)"></div>
     <div style="padding:28px 0 56px; font-size:13px; color:var(--color-neutral-600); display:flex; gap:24px; flex-wrap:wrap; justify-content:space-between">
-      <span>資料來源：<a href="{{ sheetUrl }}" target="_blank" rel="noopener">公視連署名單試算表</a>（公開唯讀）。本頁僅重新呈現公開資料。</span>
+      <span>資料來源：<a href="{{ sheetUrl }}" target="_blank" rel="noopener">公視連署名單試算表</a>（公開唯讀）。本頁僅重新呈現公開資料，問題回報請至 <a href="https://github.com/MrOrz/pts-budget-2026/issues/" target="_blank" rel="noopener">GitHub issues</a>。</span>
       <span style="font-variant-numeric:tabular-nums">{{ updatedText }}</span>
     </div>
   </div>
