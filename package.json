@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "serve": "npx serve .",
-    "fetch-budget-data": "node scripts/fetch-budget-data.mjs"
+    "fetch-budget-data": "node scripts/fetch-budget-data.mjs",
+    "fetch-signup-data": "node scripts/fetch-signup-data.mjs"
   }
 }

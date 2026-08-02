@@ -6,7 +6,7 @@
 
 ## 資料來源
 
-- **連署趨勢**:即時讀取[連署試算表](https://docs.google.com/spreadsheets/d/16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw/edit),用 Google Visualization Query Language(gviz)在伺服器端先做小時聚合,瀏覽器只下載聚合後的結果。
+- **連署趨勢**:[連署試算表](https://docs.google.com/spreadsheets/d/16TZCIWrIs0EKbAKJ35x7pHnOj-KQgViTa7w27kOA2Zw/edit)背後的 Google 表單已達 10 萬筆回應上限、停止同步,因此不再即時抓取,改成把每小時簽署量的聚合結果存成 `signup-data.json`,隨頁面一起發布。
 - **預算表**:115 年度公視預算書已經定案(除非官方發布勘誤,否則不會再變動),因此不像連署數字那樣即時抓取,而是把[預算試算表](https://docs.google.com/spreadsheets/d/1JDoZ72lLq2rF-bsGJaSg5Hetr8eZp23y67yj2-2NTyA/edit)的三個分頁存成 `budget-data.json`,隨頁面一起發布。
 
 ## 授權
@@ -27,4 +27,5 @@
 ```bash
 npm run serve               # 起本機靜態伺服器預覽 index.html
 npm run fetch-budget-data   # 從預算試算表重新產生 budget-data.json(僅預算書有勘誤時才需要)
+npm run fetch-signup-data   # 從連署試算表重新產生 signup-data.json(表單已停止同步,理論上不會再需要)
 ```
